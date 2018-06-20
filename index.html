@@ -1,141 +1,33 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <title>Giphy Homework</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" type="text/css" href="assets/styles/style.css">
+    <title>Gif Display</title>
 </head>
-
 <body>
-    
+    <div id ="buttons">
 
-  <div id ="buttons">
-
-  </div>
-  <div id="form-container">
+    </div>
+    <div id="form-container">
         <form id="topic-form">
-                <label for="topic-input">Add a Movie Bro</label>
+            <label for="topic-input">Add a Topic</label>
                 <input type="text" id="topic-input">
                 <br>
-          
-                <!-- Button triggers new movie to be added -->
+                    
+                          <!-- Button triggers new movie to be added -->
                 <input id="add-topic" type="submit" value="Add a Topic">
-              </form>
-  </div>
-  <div id="gif-location">
-  </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script type="text/javascript">
-    
-
-    var topics = []
-
-    function renderButtons() {
-
-// Deleting the movies prior to adding new movies
-// (this is necessary otherwise you will have repeat buttons)
-$("#buttons").empty();
-
-// Looping through the array of movies
-for (var i = 0; i < topics.length; i++) {
-
-  // Then dynamicaly generating buttons for each movie in the array
-  // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
-  var a = $("<button>");
-  // Adding a class of movie-btn to our button
-  a.addClass("thing-button");
-  // Adding a data-attribute
-  a.attr("data-thing", topics[i]);
-  // Providing the initial button text
-  a.text(topics[i]);
-  // Adding the button to the buttons-view div
-  $("#buttons").append(a);
-}
-}
-
-// This function handles events where a movie button is clicked
-$("#add-topic").on("click", function(event) {
-event.preventDefault();
-// This line grabs the input from the textbox
-var topic = $("#topic-input").val().trim();
-$("#topic-input").val("");
-// Adding movie from the textbox to our array
-topics.push(topic);
-
-// Calling renderButtons which handles the processing of our movie array
-renderButtons();
-});
-    
-    
-    
-
-    // Adding click event listen listener to all buttons
-    $(document.body).on("click", ".thing-button", function() {
-      // Grabbing and storing the data-animal property value from the button
-      var thing = $(this).attr("data-thing");
-      console.log(thing)
-
-      // Constructing a queryURL using the animal name
-      var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-        thing + "&api_key=dc6zaTOxFJmzC&limit=10";
-
-      // Performing an AJAX request with the queryURL
-      $.ajax({
-        url: queryURL,
-        method: "GET"
-      })
-        // After data comes back from the request
-        .then(function(response) {
-          console.log(queryURL);
-
-          console.log(response);
-          // storing the data from the AJAX request in the results variable
-          var results = response.data;
-
-          // Looping through each result item
-          for (var i = 0; i < 10; i++) {
-
-            // Creating and storing a div tag
-            var newDiv = $("<div>");
-
-            // Creating a paragraph tag with the result item's rating
-            var newP = $("<p>").text("Rating: " + results[i].rating);
-
-            // Creating and storing an image tag
-            var newImage = $("<img state='still' class='clickable' animated-url='" + results[i].images.fixed_height.url + "' still-url='" +results[i].images.fixed_height_still.url +"'>");
-            // Setting the src attribute of the image to a property pulled off the result item
-            newImage.attr("src", results[i].images.fixed_height_still.url);
-
-            // Appending the paragraph and image tag to the animalDiv
-            newDiv.append(newP);
-            newDiv.append(newImage);
-
-            // Prependng the animalDiv to the HTML page in the "#gifs-appear-here" div
-            $("#gif-location").prepend(newDiv);
-          }
-        });
-    });
-
-     
-    $(document.body).on("click", ".clickable", function() {
-      // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
-      var state = $(this).attr("state");
-      // If the clicked image's state is still, update its src attribute to what its data-animate value is.
-      // Then, set the image's data-state to animate
-      // Else set src to the data-still value
-      if (state === "still") {
-          console.log("click")
-        $(this).attr("src", $(this).attr("animated-url"));
-        $(this).attr("state", "animate");
-      } else {
-        $(this).attr("src", $(this).attr("still-url"));
-        $(this).attr("state", "still");
-      }
-    });
-
-    
-
-  </script>
+        </form>
+    </div>
+    <div id="gif-location">
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="code/javascript.js"></script>
 </body>
-
 </html>
