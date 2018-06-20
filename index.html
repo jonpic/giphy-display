@@ -13,13 +13,13 @@
 
   </div>
   <div id="form-container">
-        <form id="movie-form">
-                <label for="movie-input">Add a Movie Bro</label>
-                <input type="text" id="movie-input">
+        <form id="topic-form">
+                <label for="topic-input">Add a Movie Bro</label>
+                <input type="text" id="topic-input">
                 <br>
           
                 <!-- Button triggers new movie to be added -->
-                <input id="add-topic" type="submit" value="Add a Movie Bro">
+                <input id="add-topic" type="submit" value="Add a Topic">
               </form>
   </div>
   <div id="gif-location">
@@ -28,7 +28,7 @@
   <script type="text/javascript">
     
 
-    var movies = []
+    var topics = []
 
     function renderButtons() {
 
@@ -37,7 +37,7 @@
 $("#buttons").empty();
 
 // Looping through the array of movies
-for (var i = 0; i < movies.length; i++) {
+for (var i = 0; i < topics.length; i++) {
 
   // Then dynamicaly generating buttons for each movie in the array
   // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
@@ -45,9 +45,9 @@ for (var i = 0; i < movies.length; i++) {
   // Adding a class of movie-btn to our button
   a.addClass("thing-button");
   // Adding a data-attribute
-  a.attr("data-thing", movies[i]);
+  a.attr("data-thing", topics[i]);
   // Providing the initial button text
-  a.text(movies[i]);
+  a.text(topics[i]);
   // Adding the button to the buttons-view div
   $("#buttons").append(a);
 }
@@ -57,10 +57,10 @@ for (var i = 0; i < movies.length; i++) {
 $("#add-topic").on("click", function(event) {
 event.preventDefault();
 // This line grabs the input from the textbox
-var movie = $("#movie-input").val().trim();
-
+var topic = $("#topic-input").val().trim();
+$("#topic-input").val("");
 // Adding movie from the textbox to our array
-movies.push(movie);
+topics.push(topic);
 
 // Calling renderButtons which handles the processing of our movie array
 renderButtons();
